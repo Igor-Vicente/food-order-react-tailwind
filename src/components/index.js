@@ -1,5 +1,6 @@
 import Header from './Header';
 import Meals from './Meals';
 import MealItem from './MealItem';
+import Button from './UI/Button';
 
-export { Header, MealItem, Meals };
+export { Button, Header, MealItem, Meals };

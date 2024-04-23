@@ -1,8 +1,9 @@
 import { logoJpg } from '../assets';
+import Button from './UI/Button';
 
 const Header = () => {
   return (
-    <header className="flex justify-between items-center py-12 px-[10%]">
+    <header className="flex justify-between items-center py-12 px-[10%] xl:px-[20%]">
       <div className="flex items-center gap-4">
         <img
           src={logoJpg}
@@ -14,7 +15,9 @@ const Header = () => {
         </h1>
       </div>
       <nav>
-        <button className="font-lato text-2xl">Cart (0)</button>
+        <Button textOnly className={'font-lato text-2xl'}>
+          Cart (0)
+        </Button>
       </nav>
     </header>
   );

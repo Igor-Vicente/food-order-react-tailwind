@@ -1,4 +1,5 @@
 import { currencyFormatter } from '../util/formatting';
+import Button from './UI/Button';
 
 const MealItem = ({ meal }) => {
   return (
@@ -17,9 +18,7 @@ const MealItem = ({ meal }) => {
           <p className="m-4">{meal.description}</p>
         </div>
         <p className="mb-6">
-          <button className="bg-yellow border-yellow text-[#1f1a09] py-2 px-6 rounded">
-            Add to Cart
-          </button>
+          <Button> Add to Cart</Button>
         </p>
       </article>
     </li>

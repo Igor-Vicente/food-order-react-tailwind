@@ -9,6 +9,7 @@ export default {
         bgMealItem: '#1d1a16',
         mealPrice: '#312c1d',
         yellow: '#ffc404',
+        yellowDark: '#ffab04',
         dimWhite: 'rgba(255, 255, 255, 0.7)',
         dimBlue: 'rgba(9, 151, 124, 0.1)',
       },
