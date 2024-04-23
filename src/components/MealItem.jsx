@@ -1,3 +1,5 @@
+import { currencyFormatter } from '../util/formatting';
+
 const MealItem = ({ meal }) => {
   return (
     <li id="meal-item" className="bg-bgMealItem rounded-2xl overflow-hidden text-center shadow-xl">
@@ -10,7 +12,7 @@ const MealItem = ({ meal }) => {
         <div>
           <h3 className="text-2xl font-bold my-3">{meal.name}</h3>
           <p className="inline-block bg-mealPrice text-yellow text-base font-bold py-2 px-8 rounded">
-            {meal.price}
+            {currencyFormatter.format(meal.price)}
           </p>
           <p className="m-4">{meal.description}</p>
         </div>
