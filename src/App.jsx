@@ -1,9 +1,10 @@
-import { Header } from './components';
+import { Header, Meals } from './components';
 
 function App() {
   return (
     <>
       <Header />
+      <Meals />
     </>
   );
 }
