@@ -1,7 +1,15 @@
+import { useContext } from 'react';
 import { currencyFormatter } from '../util/formatting';
 import Button from './UI/Button';
+import { CartContext } from '../store/CartContext';
 
 const MealItem = ({ meal }) => {
+  const cartCtx = useContext(CartContext);
+
+  const handleAddMealItem = () => {
+    cartCtx.addItem(meal);
+  };
+
   return (
     <li id="meal-item" className="bg-bgMealItem rounded-2xl overflow-hidden text-center shadow-xl">
       <article className="flex flex-col justify-between h-full">
@@ -18,7 +26,7 @@ const MealItem = ({ meal }) => {
           <p className="m-4">{meal.description}</p>
         </div>
         <p className="mb-6">
-          <Button> Add to Cart</Button>
+          <Button onClick={handleAddMealItem}> Add to Cart</Button>
         </p>
       </article>
     </li>

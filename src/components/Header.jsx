@@ -1,7 +1,15 @@
+import { useContext } from 'react';
 import { logoJpg } from '../assets';
 import Button from './UI/Button';
+import { CartContext } from '../store/CartContext';
 
 const Header = () => {
+  const cartCtx = useContext(CartContext);
+
+  const totalCartItems = cartCtx.items.reduce((totalNumberOfItems, item) => {
+    return totalNumberOfItems + item.quantity;
+  }, 0);
+
   return (
     <header className="flex justify-between items-center py-12 px-[10%] xl:px-[20%]">
       <div className="flex items-center gap-4">
@@ -16,7 +24,7 @@ const Header = () => {
       </div>
       <nav>
         <Button textOnly className={'font-lato text-2xl'}>
-          Cart (0)
+          Cart ({totalCartItems})
         </Button>
       </nav>
     </header>
