@@ -15,13 +15,20 @@ const Cart = () => {
     0,
   );
 
-  const handleCloseCart = () => {
+  const handleClose = () => {
     userProgressCtx.hideCart();
   };
 
+  const handleGoToCheckout = () => {
+    userProgressCtx.showCheckout();
+  };
+
   return (
-    <Modal open={userProgressCtx.progress === 'cart'}>
-      <h2 className="my-4 font-bold text-xl">Your Cart</h2>
+    <Modal
+      open={userProgressCtx.progress === 'cart'}
+      onClose={userProgressCtx.progress === 'cart' ? handleClose : null}
+    >
+      <h2 className="my-4 font-bold text-xl uppercase">Your Cart</h2>
       <ul className="my-2">
         {cartCtx.items.map((item) => (
           <CartItem
@@ -38,10 +45,10 @@ const Cart = () => {
         {currencyFormatter.format(cartTotal)}
       </p>
       <p id="modal-actions" className="flex justify-end gap-4">
-        <Button textOnly onClick={handleCloseCart} className={'text-bgBodyGradient2'}>
+        <Button textOnly onClick={handleClose}>
           Close
         </Button>
-        <Button>Go to Checkout</Button>
+        {cartCtx.items.length > 0 && <Button onClick={handleGoToCheckout}>Go to Checkout</Button>}
       </p>
     </Modal>
   );

@@ -30,6 +30,8 @@ const Header = () => {
       </div>
       <nav>
         <Button textOnly onClick={handleShowCart} className={'font-lato text-2xl'}>
+          {/* todo - use an cart icon*/}
+          {/* <img src={} alt="" /> */}
           Cart ({totalCartItems})
         </Button>
       </nav>
