@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 
 const Modal = ({ children, open, className = '' }) => {
   let css =
-    'bg-bgLightGray rounded border-none shadow-black drop-shadow-md p-4 w-[80%] max-w-2xl animate-fadeSlidUp backdrop:bg-black/70 ' +
+    'bg-lightGray rounded border-none shadow-black drop-shadow-md p-4 w-[80%] max-w-2xl animate-fadeSlidUp backdrop:bg-black/70 ' +
     className;
 
   const dialogRef = useRef();
