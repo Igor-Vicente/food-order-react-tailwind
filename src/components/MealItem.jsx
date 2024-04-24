@@ -11,7 +11,10 @@ const MealItem = ({ meal }) => {
   };
 
   return (
-    <li id="meal-item" className="bg-bgMealItem rounded-2xl overflow-hidden text-center shadow-xl">
+    <li
+      id="meal-item"
+      className="bg-bgMealItem rounded-2xl overflow-hidden text-center shadow-black shadow-md"
+    >
       <article className="flex flex-col justify-between h-full">
         <img
           src={`http://localhost:3000/${meal.image}`}
