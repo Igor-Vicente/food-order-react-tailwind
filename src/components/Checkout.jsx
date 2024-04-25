@@ -4,11 +4,27 @@ import { CartContext } from '../store/CartContext';
 import { currencyFormatter } from '../util/formatting';
 import Button from './UI/Button';
 import Input from './Input';
+import Error from './Error';
 import { UserProgressContext } from '../store/UserProgressContext';
+import useHttp from '../hooks/useHttp';
+
+const requestConfig = {
+  method: 'POST',
+  headers: {
+    'Content-type': 'application/json',
+  },
+};
 
 const Checkout = () => {
   const cartCtx = useContext(CartContext);
   const userProgressCtx = useContext(UserProgressContext);
+  const {
+    data,
+    isLoading: isSending,
+    error,
+    sendRequest,
+    clearData,
+  } = useHttp('http://localhost:3000/orders', requestConfig);
 
   const cartTotal = cartCtx.items.reduce(
     (totalPrice, item) => totalPrice + item.quantity * item.price,
@@ -19,25 +35,49 @@ const Checkout = () => {
     userProgressCtx.hideCheckout();
   };
 
+  const handleFinish = () => {
+    userProgressCtx.hideCheckout();
+    cartCtx.clearCart();
+    clearData();
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const fd = new FormData(event.target);
     const customerData = Object.fromEntries(fd.entries());
 
-    fetch('http://localhost:3000/orders', {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      body: JSON.stringify({
+    sendRequest(
+      JSON.stringify({
         order: {
           items: cartCtx.items,
           customer: customerData,
         },
       }),
-    });
+    );
   };
 
+  let actions = (
+    <>
+      <Button type="button" textOnly onClick={handleClose}>
+        Close
+      </Button>
+      <Button>Submit Order</Button>
+    </>
+  );
+
+  if (isSending) actions = <span>Sending order data...</span>;
+  if (data && !error) {
+    return (
+      <Modal open={userProgressCtx.progress === 'checkout'} onClose={handleFinish}>
+        <h2>Success!</h2>
+        <p>Your order was submitted successfully.</p>
+        <p>We will get back to you with more details via email within the next few minutes.</p>
+        <p className="flex justify-end gap-4">
+          <Button onClick={handleFinish}>Okay</Button>
+        </p>
+      </Modal>
+    );
+  }
   return (
     <Modal open={userProgressCtx.progress === 'checkout'} onClose={handleClose}>
       <form onSubmit={handleSubmit}>
@@ -51,12 +91,8 @@ const Checkout = () => {
           <Input label="Postal Code" type="text" id="postal-code" />
           <Input label="City" type="text" id="city" />
         </div>
-        <p id="modal-actions" className="flex justify-end gap-4">
-          <Button type="button" textOnly onClick={handleClose}>
-            Close
-          </Button>
-          <Button>Submit Order</Button>
-        </p>
+        {error && <Error title="Failed to submit order." message={error} />}
+        <p className="flex justify-end gap-4">{actions}</p>
       </form>
     </Modal>
   );
